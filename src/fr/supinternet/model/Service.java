@@ -42,6 +42,14 @@ public class Service {
 		return nurseOffices.add(nurseOffice);
 	}
 	
+	public List<NurseOffice> getNurseOffices() {
+		return nurseOffices;
+	}
+
+	public void setNurseOffices(List<NurseOffice> nurseOffices) {
+		this.nurseOffices = nurseOffices;
+	}
+
 	public boolean removeNurseOffice(NurseOffice nurseOffice){
 		if (nurseOffice == null){
 			return false;
@@ -52,5 +60,13 @@ public class Service {
 		
 		return nurseOffices.remove(nurseOffice);
 	}
+
+	@Override
+	public String toString() {
+		return "Service [rooms=" + rooms + ", nurseOffices=" + nurseOffices
+				+ "]";
+	}
+	
+	
 
 }

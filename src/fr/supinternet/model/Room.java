@@ -3,6 +3,8 @@ package fr.supinternet.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.supinternet.manager.AlarmManager;
+
 public class Room {
 	
 	private String name;
@@ -13,11 +15,32 @@ public class Room {
 	
 	private List<Patient> patients = new ArrayList<Patient>();
 	
+	private AlarmManager alarmManager = AlarmManager.getInstance();
+	
 	public Room(String name, int number, int bedCount) {
 		super();
 		this.name = name;
 		this.number = number;
 		this.bedCount = bedCount;
+		start();
+	}
+	
+	private void start(){
+		Thread t = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				while (true){
+					try {
+						Thread.sleep((long) (Math.random() * 5000));
+						alarmManager.notifyListener(Room.this);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+		t.start();
 	}
 
 	public boolean addPatient(Patient patient){
